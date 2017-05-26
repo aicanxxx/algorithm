@@ -22,44 +22,44 @@
 输出例子:
  42
 * */
-    process.stdin.resume();//回复输入流
-    process.stdin.setEncoding('utf8');
+process.stdin.resume();//回复输入流
+process.stdin.setEncoding('utf8');
 
-    var input_stdin = "";//输入的全部数据
-    var input_stdin_array = "";//输入的每行数据以数组形式存在
-    var input_currentline = 0;//输入的行数
+var input_stdin = "";//输入的全部数据
+var input_stdin_array = "";//输入的每行数据以数组形式存在
+var input_currentline = 0;//输入的行数
 
-    process.stdin.on('data', function (data) {//接收输入的数据
-        input_stdin += data;
-        if(data.slice(0,-1)==''){
-            process.stdin.emit('end');//输入空的回车结束输入
-        }
-    });
-
-    process.stdin.on('end', function () {//end触发
-        input_stdin_array = input_stdin.split("\n");
-        main();//对输入进行操作
-    });
-
-    function readLine() {
-        return input_stdin_array[input_currentline++];//读取每一行的数据
+process.stdin.on('data', function (data) {//接收输入的数据
+    input_stdin += data;
+    if(data.slice(0,-1)==''){
+        process.stdin.emit('end');//输入空的回车结束输入
     }
-    function main() {
-        var taxiNum=readLine();
-        var tX=readLine().split(' ');
-        var tY=readLine().split(' ');
-        var gXY=readLine().split(' ');
-        var time=readLine().split(' ');
+});
 
-        var minTime=0;
-        var wT=0;
-        var tT=(Math.abs(tX[0])+Math.abs(tY[0]))*time[0]+(Math.abs(gXY[0]-tX[0])+Math.abs(gXY[1]-tY[0]))*time[1] ||0;
-        wT=(Math.abs(gXY[0])+Math.abs(gXY[1]))*time[0];
-        if(taxiNum>1){
-            for(var i=1;i<taxiNum;i++){
-                tT=(Math.abs(tX[i])+Math.abs(tY[i]))*time[0]+(Math.abs(gXY[0]-tX[i])+Math.abs(gXY[1]-tY[i]))*time[1]>tT?tT:(Math.abs(tX[i])+Math.abs(tY[i]))*time[0]+(Math.abs(gXY[0]-tX[i])+Math.abs(gXY[1]-tY[i]))*time[1];
-            }
+process.stdin.on('end', function () {//end触发
+    input_stdin_array = input_stdin.split("\n");
+    main();//对输入进行操作
+});
+
+function readLine() {
+    return input_stdin_array[input_currentline++];//读取每一行的数据
+}
+function main() {
+    var taxiNum=readLine();
+    var tX=readLine().split(' ');
+    var tY=readLine().split(' ');
+    var gXY=readLine().split(' ');
+    var time=readLine().split(' ');
+
+    var minTime=0;
+    var wT=0;
+    var tT=(Math.abs(tX[0])+Math.abs(tY[0]))*time[0]+(Math.abs(gXY[0]-tX[0])+Math.abs(gXY[1]-tY[0]))*time[1] ||0;
+    wT=(Math.abs(gXY[0])+Math.abs(gXY[1]))*time[0];
+    if(taxiNum>1){
+        for(var i=1;i<taxiNum;i++){
+            tT=(Math.abs(tX[i])+Math.abs(tY[i]))*time[0]+(Math.abs(gXY[0]-tX[i])+Math.abs(gXY[1]-tY[i]))*time[1]>tT?tT:(Math.abs(tX[i])+Math.abs(tY[i]))*time[0]+(Math.abs(gXY[0]-tX[i])+Math.abs(gXY[1]-tY[i]))*time[1];
         }
-        minTime=Math.min(wT,tT);
-        console.log(minTime);
     }
+    minTime=Math.min(wT,tT);
+    console.log(minTime);
+}
