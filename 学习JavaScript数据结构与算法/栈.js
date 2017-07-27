@@ -49,52 +49,69 @@ function baseConverter(decNumber,base){
     }
     return baseString;
 }
-    /*
-    * 括号匹配
-    * function checkBracket(st)
-    * st:括号字符串*/
-    function checkBracket(st){
-        var bracket=st.split('');//将字符串转化为数组
-        var stack=new Stack();
-        var i=0;
-        while(i<bracket.length){
-            //如果是( [ { 则放入栈中，是) ] }则与栈顶元素进行比较，如果都不是则不用管，i++
-            if(bracket[i]=='('||bracket[i]=='['||bracket[i]=='{'){
-                stack.push(bracket[i]);
-            }else{
-                if(bracket[i]==')'){
-                    //如果栈顶的括号是与之对应的，则删除并判断是否为空
-                    if(stack.pop()=='('){
-                        if(stack.isEmpty()){
-                            return true;
-                        }
-                    }else{
-                        return false;
+/*
+* 括号匹配
+* function checkBracket(st)
+* st:括号字符串*/
+function checkBracket(st){
+    var bracket=st.split('');//将字符串转化为数组
+    var stack=new Stack();
+    var i=0;
+    while(i<bracket.length){
+        //如果是( [ { 则放入栈中，是) ] }则与栈顶元素进行比较，如果都不是则不用管，i++
+        if(bracket[i]=='('||bracket[i]=='['||bracket[i]=='{'){
+            stack.push(bracket[i]);
+        }else{
+            if(bracket[i]==')'){
+                //如果栈顶的括号是与之对应的，则删除并判断是否为空
+                if(stack.pop()=='('){
+                    if(stack.isEmpty()){
+                        return true;
                     }
-                }
-                if(bracket[i]==']'){
-                    //如果栈顶的括号是与之对应的，则删除并判断是否为空
-                    if(stack.pop()=='['){
-                        if(stack.isEmpty()){
-                            return true;
-                        }
-                    }else{
-                        return false;
-                    }
-                }
-                if(bracket[i]=='}'){
-                    //如果栈顶的括号是与之对应的，则删除并判断是否为空
-                    if(stack.pop()=='{'){
-                        if(stack.isEmpty()){
-                            return true;
-                        }
-                    }else{
-                        return false;
-                    }
+                }else{
+                    return false;
                 }
             }
-            i++;
+            if(bracket[i]==']'){
+                //如果栈顶的括号是与之对应的，则删除并判断是否为空
+                if(stack.pop()=='['){
+                    if(stack.isEmpty()){
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
+            }
+            if(bracket[i]=='}'){
+                //如果栈顶的括号是与之对应的，则删除并判断是否为空
+                if(stack.pop()=='{'){
+                    if(stack.isEmpty()){
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
+            }
         }
+        i++;
     }
-st="({(}){9088}()";
-console.log(checkBracket(st));
+}
+    function move(n,a,c) {
+        c.push(a.pop());
+    }
+    function hanoi(n,a,b,c){
+        if(n==0)return;
+        hanoi(n-1,a,c,b);
+        move(n,a,c);
+        hanoi(n-1,b,a,c);
+    }
+    a=new Stack();
+    b=new Stack();
+    c=new Stack();
+    var n=5;
+    for(let i=0;i<n;i++){
+        a.push(i);
+    }
+    a.print();
+    hanoi(n,a,b,c);
+    c.print();
